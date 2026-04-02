@@ -2,6 +2,13 @@ const fs = require("fs");
 const path = require("path");
 const { parseStringPromise } = require("xml2js");
 
+function scanRecursive(dir) { /* walk subfolders */ }
+
+const parsers = {
+  ".json": { parse: JSON.parse, validate: validateJSON },
+  ".xml": { parse: parseXML, validate: validateXML },
+};
+
 // ---- Generic File Handler Class ----
 class FileRecord {
   constructor(filePath, type, data, valid) {
