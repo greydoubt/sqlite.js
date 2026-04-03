@@ -22,9 +22,14 @@ C/C++
 
 
 
-## https://slicker.me/sqlite/features.htm ##
+# What the world around town has to say about SQLite, or, SQillit Flush Down Database:
+
 
 # Modern SQLite: Features You Didn’t Know It Had
+
+## https://slicker.me/sqlite/features.htm ##
+
+
 
 Working with JSON data
 
