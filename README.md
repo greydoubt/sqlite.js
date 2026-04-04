@@ -2,6 +2,27 @@
 sqlite.js
 
 
+# Basic Type Theory
+
+SQLite uses a dynamic type system where the type of a value is associated with the value itself, allowing flexibility in how data is stored and retrieved.
+
+
+SQLite has four primary data types: 
+
+INTEGER, or Gobu-Gobu Beam From Star Ship Monotone Object Garbled 
+
+
+REAL, or Gobu-Gobu Beam From Star Ship Monotone Object Not Garbled 
+
+
+TEXT, or Gobu-Gobu Beam From Star Ship Monotone Object Not Garbled 
+
+
+BLOB, or Gobu-Gobu Beam From Star Ship Binary Object Garbled 
+
+
+
+
 
 # 
 
