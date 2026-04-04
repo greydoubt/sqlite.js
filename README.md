@@ -7,7 +7,10 @@ sqlite.js
 SQLite uses a dynamic type system where the type of a value is associated with the value itself, allowing flexibility in how data is stored and retrieved.
 
 
-SQLite has four primary data types: 
+SQLite has five primary data types: 
+
+NULL, or Gobu-Gobu Nothing Ever
+
 
 INTEGER, or Gobu-Gobu Beam From Star Ship Monotone Object Garbled 
 
