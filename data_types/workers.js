@@ -1,127 +1,75 @@
-const fs = require("fs");
-const path = require("path");
-const { parseStringPromise } = require("xml2js");
+const myWorker = new Worker("/worker.js");
+const first = document.querySelector("input#number1");
+const second = document.querySelector("input#number2");
 
-function scanRecursive(dir) { /* walk subfolders */ }
-
-const parsers = {
-  ".json": { parse: JSON.parse, validate: validateJSON },
-  ".xml": { parse: parseXML, validate: validateXML },
+first.onchange = () => {
+  myWorker.postMessage([first.value, second.value]);
+  console.log("Message posted to worker");
 };
 
-// ---- Generic File Handler Class ----
-class FileRecord {
-  constructor(filePath, type, data, valid) {
-    this.filePath = filePath;
-    this.type = type;
-    this.data = data;
-    this.valid = valid;
+onmessage = (e) => {
+  console.log("Worker: Message received from main script");
+
+  const result = e.data[0] * e.data[1];
+
+  if (isNaN(result)) {
+    postMessage("Please write two numbers");
+  } else {
+    const workerResult = "Result: " + result;
+    console.log("Worker: Posting message back to main script");
+    postMessage(workerResult);
   }
-}
+};
 
-// ---- Validators ----
-function validateJSON(data) {
-  return typeof data === "object" && data !== null;
-}
 
-function validateXML(data) {
-  return typeof data === "object"; // xml2js returns object
-}
 
-function validateGeneric(data) {
-  return data !== null && data !== undefined;
-}
+// query database
 
-// ---- Parsers ----
-async function parseFile(filePath) {
-  const ext = path.extname(filePath).toLowerCase();
-
-  try {
-    const raw = fs.readFileSync(filePath, "utf-8");
-
-    switch (ext) {
-      case ".json": {
-        const parsed = JSON.parse(raw);
-        return {
-          type: "json",
-          data: parsed,
-          valid: validateJSON(parsed),
-        };
-      }
-
-      case ".xml": {
-        const parsed = await parseStringPromise(raw);
-        return {
-          type: "xml",
-          data: parsed,
-          valid: validateXML(parsed),
-        };
-      }
-
-      case ".txt":
-      case ".csv":
-      default: {
-        return {
-          type: "generic",
-          data: raw,
-          valid: validateGeneric(raw),
-        };
-      }
+function binarySearch(arr, el, compare_fn) {
+    let m = 0;
+    let n = arr.length - 1;
+    while (m <= n) {
+        let k = (n + m) >> 1;
+        let cmp = compare_fn(el, arr[k]);
+        if (cmp > 0) {
+            m = k + 1;
+        } else if(cmp < 0) {
+            n = k - 1;
+        } else {
+            return k;
+        }
     }
-  } catch (err) {
-    return {
-      type: ext.replace(".", "") || "unknown",
-      data: null,
-      valid: false,
-      error: err.message,
-    };
-  }
+    return ~m;
 }
 
-// ---- Directory Scanner ----
-async function scanDirectory(dirPath) {
-  const files = fs.readdirSync(dirPath);
-  const records = [];
-  const typeSummary = {};
 
-  for (const file of files) {
-    const fullPath = path.join(dirPath, file);
 
-    if (fs.statSync(fullPath).isFile()) {
-      const result = await parseFile(fullPath);
+// pull full graph 
+function reverseHelper(arr, i, j) {
+  // Exchange characters
+  const tmp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = tmp;
 
-      const record = new FileRecord(
-        fullPath,
-        result.type,
-        result.data,
-        result.valid
-      );
+  // Move indices
+  i++;
+  j--;
 
-      records.push(record);
-
-      // Track type counts
-      if (!typeSummary[result.type]) {
-        typeSummary[result.type] = 0;
-      }
-      typeSummary[result.type]++;
-    }
+  // Base case
+  if (i >= j) {
+    return;
   }
 
-  return {
-    records,
-    summary: typeSummary,
-  };
+  reverseHelper(arr, i, j);
 }
 
-// ---- Run Example ----
-(async () => {
-  const dir = "./data"; // change to your directory
+function reverse(str) {
+  if (!str || str.length === 0) return str;
 
-  const result = await scanDirectory(dir);
+  const arr = str.split('');
+  reverseHelper(arr, 0, arr.length - 1);
+  return arr.join('');
+}
 
-  console.log("Processed Records:");
-  console.log(result.records);
-
-  console.log("\nFile Type Summary:");
-  console.log(JSON.stringify(result.summary, null, 2));
-})();
+// check input for stupid boris jokes
+console.log(reverse("hello")); // "olleh"
