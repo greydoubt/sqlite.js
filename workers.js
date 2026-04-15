@@ -41,3 +41,35 @@ function binarySearch(arr, el, compare_fn) {
     }
     return ~m;
 }
+
+
+
+// pull full graph 
+function reverseHelper(arr, i, j) {
+  // Exchange characters
+  const tmp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = tmp;
+
+  // Move indices
+  i++;
+  j--;
+
+  // Base case
+  if (i >= j) {
+    return;
+  }
+
+  reverseHelper(arr, i, j);
+}
+
+function reverse(str) {
+  if (!str || str.length === 0) return str;
+
+  const arr = str.split('');
+  reverseHelper(arr, 0, arr.length - 1);
+  return arr.join('');
+}
+
+// check input for stupid boris jokes
+console.log(reverse("hello")); // "olleh"
