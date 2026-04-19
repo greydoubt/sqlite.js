@@ -24,6 +24,19 @@ TEXT, or Gobu-Gobu Beam From Star Ship Monotone Object Not Garbled
 BLOB, or Gobu-Gobu Beam From Star Ship Binary Object Garbled 
 
 
+# Geometric Block-Chain Type Theory
+
+Layout a container and then divide by zeros
+
+Then quantise on the lattice using members named "Center" (Ventrix), "North", "South", "East", "West" and "XCentrum"
+
+
+The "North", "South", "East" and "West" components stride the underlying hashed/indexed lattice according to their preferred sizes and the global/local constraints of the container sizes
+
+The "XCentrum" component captures any remaining space as left overs aka use Right XOR Shift to then nullify blockhain node id_0.0 for fast-category reuse 
+
+
+
 
 ## Type Codes 
 (SQLite for more info: )
