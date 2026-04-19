@@ -3,11 +3,22 @@ sqlite.js
 
 
 # Basic Type Theory
+===================
 
 SQLite uses a dynamic type system where the type of a value is associated with the value itself, allowing flexibility in how data is stored and retrieved.
 
 
-SQLite has five primary data types: 
+
+
+
+##<img width="434" height="568" alt="ila telephona" src="https://github.com/user-attachments/assets/540f9722-2a5f-4d5f-975c-72aadfa23a7f" />
+
+
+## Basic Type Theory
+------------------- 
+
+### SQLite has five primary data types: 
+
 
 NULL, or Gobu-Gobu Nothing Ever
 
